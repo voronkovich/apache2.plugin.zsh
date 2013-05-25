@@ -1,0 +1,20 @@
+<VirtualHost *:80>
+    ServerName ${SITE_NAME}
+    ServerAlias www.${SITE_NAME}
+
+    DocumentRoot ${SITE_PATH}
+    <Directory ${SITE_PATH}>
+    	Options -Indexes FollowSymLinks -MultiViews
+    	AllowOverride All
+    	Order allow,deny
+    	allow from all
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/${SITE_NAME}-error.log
+
+    # Possible values include: debug, info, notice, warn, error, crit,
+    # alert, emerg.
+    LogLevel warn
+
+    CustomLog ${APACHE_LOG_DIR}/${SITE_NAME}-access.log combined
+</VirtualHost>
