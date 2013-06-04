@@ -47,7 +47,7 @@ Examples:
     a2as mysite.loc ./public_html/mysite.loc
     a2as mysite
 
-You can add your custom virtual hosts templates directory by defining $APACHE_SITES_CUSTOM_TEMPLATES variable in your .zshrc.
+You can add your custom virtual hosts templates directory by defining $ZSH_PLUGIN_APACHE_SITES_CUSTOM_TEMPLATES variable in your .zshrc.
 
 License
 ------
