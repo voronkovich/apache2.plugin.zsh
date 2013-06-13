@@ -1,0 +1,9 @@
+#compdef a2as
+
+typeset -A opt_args
+
+_arguments -s -S \
+    "-l[add to /etc/hosts]" \
+    "-t[virtual host template]" \
+    "-h[show help message]" \
+    && return 0
