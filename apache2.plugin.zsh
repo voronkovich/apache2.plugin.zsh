@@ -12,7 +12,9 @@ alias a2enm="sudo a2enmod"
 alias a2dim="sudo a2dismod"
 
 a2as() {
-    if [[ $(echo $* | grep -ce '-h') -gt 0 ]]; then
+    if [[ $# -eq 0 ]]; then
+        $ZSH_PLUGIN_APACHE_PATH/a2addsite.zsh --help
+    elif [[ $(echo $* | grep -ce '-h') -gt 0 ]]; then
         $ZSH_PLUGIN_APACHE_PATH/a2addsite.zsh --help 
     else
         sudo \
