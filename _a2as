@@ -2,8 +2,10 @@
 
 typeset -A opt_args
 
-_arguments -s -S \
-    "-l[add to /etc/hosts]" \
-    "-t[virtual host template]" \
-    "-h[show help message]" \
+_arguments -s -w -S \
+    "(-h --h --help)-l[add to /etc/hosts]" \
+    "(-h --h --help)-t+[virtual host template]:host configuration template:_files -W '($ZSH_PLUGIN_APACHE_SITES_TEMPLATES${ZSH_PLUGIN_APACHE_SITES_CUSTOM_TEMPLATES:+ $ZSH_PLUGIN_APACHE_SITES_CUSTOM_TEMPLATES})'" \
+    "(-l -t --h --help)-h[show help message]" \
+    "(-l -t -h --help)--h[show help message]" \
+    "(-l -t -h --h)--help[show help message]" \
     && return 0
