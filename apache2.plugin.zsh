@@ -12,10 +12,9 @@ alias a2enm="sudo a2enmod"
 alias a2dim="sudo a2dismod"
 
 a2as() {
-    if [[ $# -eq 0 ]]; then
-        $ZSH_PLUGIN_APACHE_PATH/a2addsite.zsh --help
-    elif [[ $(echo $* | grep -ce '-h') -gt 0 ]]; then
+    if [[ $# -eq 0 || $(echo $* | grep -ce '-h') -gt 0 ]]; then
         $ZSH_PLUGIN_APACHE_PATH/a2addsite.zsh --help 
+        return 1
     else
         sudo \
             APACHE_SITES_AVAILABLE=$ZSH_PLUGIN_APACHE_SITES_AVAILABLE \
@@ -26,18 +25,30 @@ a2as() {
 }
 
 a2gs() {
+    if [[ $# -eq 0 ]]; then
+        echo "Usage: a2gs SITE NAME..."
+        return 1
+    fi
     cd $(sed -ne 's/[[:space:]]*DocumentRoot[[:space:]]\+\([^[:space:]]*\)/\1/p' $ZSH_PLUGIN_APACHE_SITES_AVAILABLE/$1) 
 }
 
 a2es() {
+    if [[ $# -eq 0 ]]; then
+        echo "Usage: a2es SITE NAME..."
+        return 1
+    fi
     if [[ -z $EDITOR ]]; then
         echo "Error: variable \$EDITOR not defined" 1>&2
-        exit 1
+        return 1
     fi
     sudo $EDITOR $ZSH_PLUGIN_APACHE_SITES_AVAILABLE/$1
 }
 
 a2ds() {
+    if [[ $# -eq 0 ]]; then
+        echo "Usage: a2ds SITE NAME..."
+        return 1
+    fi
     sudo a2dissite $1 > /dev/null
     sudo rm $ZSH_PLUGIN_APACHE_SITES_AVAILABLE/$1
 }
