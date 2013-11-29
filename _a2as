@@ -8,4 +8,5 @@ _arguments -s -w -S \
     "(-l -t --h --help)-h[show help message]" \
     "(-l -t -h --help)--h[show help message]" \
     "(-l -t -h --h)--help[show help message]" \
+    "2:site root:_dirs" \
     && return 0
