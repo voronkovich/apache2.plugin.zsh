@@ -101,7 +101,7 @@ if [[ ! -d $SITE_PATH ]]; then
     echo "Warning: site path $SITE_PATH not exists" 1>&2
 fi 
 
-render_site_template > $APACHE_SITES_AVAILABLE/$SITE_NAME
+render_site_template > $APACHE_SITES_AVAILABLE/$SITE_NAME.conf
 
 if [[ -n $local ]]; then
     if [[ -z $HOSTS_FILE ]]; then

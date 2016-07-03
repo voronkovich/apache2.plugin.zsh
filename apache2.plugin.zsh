@@ -44,13 +44,25 @@ a2es() {
     sudo $EDITOR $ZSH_PLUGIN_APACHE_SITES_AVAILABLE/$1
 }
 
+remove_from_hosts() {
+    sudo sed -i".bak" "/$SITE_NAME/d" $HOSTS_FILE
+}
+
 a2ds() {
     if [[ $# -eq 0 ]]; then
-        echo "Usage: a2ds SITE NAME..."
+        echo "Usage: a2ds SITE NAME...\nOptions:\n\t-l Remove from hosts file."
         return 1
     fi
+    zparseopts -D -E l=local
     sudo a2dissite $1 > /dev/null
-    sudo rm $ZSH_PLUGIN_APACHE_SITES_AVAILABLE/$1
+    sudo rm $ZSH_PLUGIN_APACHE_SITES_AVAILABLE/$1.conf
+    if [[ -n $local ]]; then
+        if [[ -z $HOSTS_FILE ]]; then
+            HOSTS_FILE=/etc/hosts
+        fi
+        SITE_NAME=$1
+        remove_from_hosts
+    fi
 }
 
 _a2site() {
